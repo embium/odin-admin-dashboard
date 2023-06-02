@@ -1,97 +1,169 @@
-body {
+html, body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   background-color: #e1e7f0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 a {
   text-decoration: none;
 }
 
-.grid {
+button {
+  border: none;
+  appearance: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+.page-wrap {
   display: grid;
+  margin: auto;
   grid-template-areas:
-    "aside header header"
-    "aside main main";
+    "aside header"
+    "aside content";
   grid-template-columns: 275px 1fr;
   grid-template-rows: auto 1fr;
+  height: 100vh;
 }
 
 /* header */
 
-header {
+.header {
+  background-color: #fff;
   grid-area: header;
-  background: #fff;
-  box-shadow: 0 -6px 10px 5px rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  padding: 1.5rem 3rem;
+  box-shadow:  0 10px 15px -3px rgb(0 0 0 / 0.1),
+               0 4px 6px -4px rgb(0 0 0 / 0.1);
+  z-index: 3;
 }
 
-header .top {
+.top {
   display: grid;
   grid-template-columns: 1fr max-content;
   margin-bottom: 2.5rem;
 }
 
-header .search {
+.search {
   display: flex;
-  gap: 1rem;
-  margin: 1.5rem 3rem;
   align-items: center;
   margin-right: auto;
   width: 100%;
 }
 
-header .search-input {
-  width: min(80%, 600px);
-  background-color: #e1e7f0;
-  padding: 0.5em;
-  border: 0;
-  border-radius: 1rem;
+.search label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
-header .profile {
+.search-icon {
+  font-size: 1.8rem;
+}
+
+.search > #search {
+  display: inline-block;
+  border: 0;
+  background-color: #e1e7f0;
+  padding: 0.5em 2em;
+  margin-left: 1.25rem;
+  border-radius: 99em;
+  width: min(80%, 600px);
+}
+
+.header .account {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.account button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.picture {
+  background: url(https://mir-s3-cdn-cf.behance.net/project_modules/disp/06fbe298931623.5ee79b6a90221.jpg) center center / cover no-repeat;
+  border-radius: 50%;
+}
+
+.account .picture {
+  margin: 0 1rem 0 2.5rem;
+  height: 40px;
+  width: 40px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin: 1.5rem;
 }
 
-header .profile-image {
-  border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
+.profile .picture {
+  width: 75px;
+  height: 75px;
 }
 
-header .profile-name {
+.profile .greeting {
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+}
+
+.profile .name {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+}
+
+.btn {
+  background-color: #2087c4;
+  color: #fff;
+  font-size: 0.9rem;
   font-weight: 600;
+  padding: 1em 2.3em;
+  border-radius: 99em;
 }
-
-header .notifications {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-}
-
-
 
 /* sidebar */
 
 aside {
-  height: 100vh;
+  position: sticky;
   grid-area: aside;
   background: #2291d3;
   color: #fff;
-  z-index: 2;
+  z-index: 99;
 }
 
 aside h1 {
   display: flex;
   align-items: center;
-  margin: 1rem;
+  margin: 0.5rem;
   font-size: 1.8rem;
   font-weight: 550;
 }
@@ -116,8 +188,164 @@ aside a {
   margin: 1.3rem;
 }
 
-main {
-  margin: 2rem;
-  grid-area: main;
-  z-index: 0;
+/* main */
+
+.content {
+  background-color: #e1e7f0;
+  grid-area: content;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: min-content 1fr;
+  gap: 2rem;
+  grid-template-areas:
+    'projects announcements'
+    'projects trending';
+  overflow: auto;
+}
+
+.content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);;
+}
+
+.card-text {
+  color: #929292;
+}
+
+.projects {
+  grid-area: projects;
+}
+
+.projects .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: 250px;
+  gap: 2rem;
+  padding-bottom: 2rem;
+}
+
+.projects .card {
+  border-left: 10px solid #efb32c;
+  display: flex;
+  flex-direction: column;
+}
+
+.projects .card-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.25em;
+}
+
+.projects .card-text {
+  /* font-size: 0.8rem; */
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.actions {
+  margin-top: auto;
+  align-self: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.actions span {
+  font-size: 1.75rem;
+  cursor: pointer;
+}
+
+.announcements {
+  grid-area: announcements;
+}
+
+.announcement {
+  width: 25ch;
+  padding: 1rem 0;
+}
+
+.announcement:first-child {
+  padding-top: 0;
+}
+
+.announcement:last-child {
+  padding-bottom: 0;
+}
+
+.announcement h5 {
+  font-size: 0.9rem;
+  margin-bottom: 0.25em;
+}
+
+.announcement p {
+  font-size: 0.8rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.announcement + .announcement {
+  border-top: #d5d5d5 1px solid;
+}
+
+.trending {
+  grid-area: trending;
+}
+
+.trending .card {
+  padding: 1.5rem;
+}
+
+.trend {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.trend + .trend {
+  margin-top: 1.5rem;
+}
+
+.trend .picture {
+  background-color: #efb32c;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+
+.trend .account {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.trend .username {
+  font-weight: 500;
+  margin-bottom: 0.15rem;
+}
+
+.trend-1 .picture {
+  background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/disp/2e80bb98931623.5ee79b6a8f342.jpg);
+}
+
+.trend-3 .picture {
+  background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/disp/8394f798931623.5ee79b6a909ea.jpg);
+}
+
+.trend-4 .picture {
+  background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/disp/baa20698931623.5ee79b6a8ec2b.jpg);
 }
